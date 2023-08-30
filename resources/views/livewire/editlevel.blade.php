@@ -1,5 +1,5 @@
 <div>
-    <h1>Create un niveau</h1>
+    <h1>Edit un niveau</h1>
 
     <form  wire:submit.prevent="store" method="POST" class="px-3">
         @csrf
@@ -48,9 +48,10 @@
             </a>
 
             <button class="btn rounded-pill btn-primary" type="submit">
-                Ajouter
+                Mettre a jour
             </button>
         </div>
     </form>
 
 </div>
+

@@ -84,6 +84,15 @@
                     <li><a href="add-salary.html">Add Salary</a></li>
                 </ul>
             </li> --}}
+
+            <li>
+                <a href="{{ route("students") }}"
+                :active="request()->routeIs('niveaux.list')">
+                    <i class="fas fa-holly-berry"></i>
+                    <span>Eleves</span>
+                </a>
+            </li>
+
             <li>
                 <a href="{{ route("niveaux.list") }}"
                 :active="request()->routeIs('niveaux.list')">
@@ -96,6 +105,13 @@
                 <a href="{{ route("settings") }}">
                     <i class="fas fa-holly-berry"></i>
                     <span>Annee-Scolaire</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route("classes") }}">
+                    <i class="fas fa-holly-berry"></i>
+                    <span>Classes</span>
                 </a>
             </li>
             {{-- <li>
