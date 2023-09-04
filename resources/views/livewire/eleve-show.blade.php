@@ -34,9 +34,9 @@
                                     <td>{{ $eleve->naissance}}</td>
                                     <td>{{ $eleve->contact_parent}}</td>
                                     <td>
-                                        <button wire:click='editclasse({{ $eleve->id }})' type="button" class="btn btn-outline-info mt-1" data-bs-toggle="modal" data-bs-target="#editclasse"><i class='fas fa-edit'></i></button>
+                                        <button wire:click='editStudent({{ $eleve->id }})' type="button" class="btn btn-outline-info mt-1" data-bs-toggle="modal" data-bs-target="#eleveedit"><i class='fas fa-edit'></i></button>
 
-                                        <div wire:click='deleteClasse({{ $eleve->id }})' class="btn btn-outline-danger"><i class="fas fa-trash"></i></div>
+                                        <div wire:click='deleteStudent({{ $eleve->id }})' class="btn btn-outline-danger"><i class="fas fa-trash"></i></div>
 
                                     </td>
                                 </tr>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\ElevesController;
+use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\LevelsController;
 use App\Http\Controllers\NiveauController;
 use App\Http\Controllers\SchoolYearConttoller;
@@ -45,5 +46,9 @@ Route::middleware('auth')->group(function() {
 
     Route::prefix('eleves')->group(function () {
         Route::get('/', [ElevesController::class, 'index'])->name('students');
+    });
+
+    Route::prefix('inscriptions')->group(function () {
+        Route::get('/', [InscriptionController::class, 'index'])->name('inscriptions');
     });
 });

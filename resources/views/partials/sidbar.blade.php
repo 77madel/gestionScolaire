@@ -94,6 +94,13 @@
             </li>
 
             <li>
+                <a href="{{ route("inscriptions") }}">
+                    <i class="fas fa-holly-berry"></i>
+                    <span>Inscription</span>
+                </a>
+            </li>
+
+            <li>
                 <a href="{{ route("niveaux.list") }}"
                 :active="request()->routeIs('niveaux.list')">
                     <i class="fas fa-holly-berry"></i>
@@ -114,6 +121,8 @@
                     <span>Classes</span>
                 </a>
             </li>
+
+
             {{-- <li>
                 <a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>Fees</span></a>
             </li>
