@@ -24,6 +24,36 @@ class InscriptionShow extends Component
     public $matricule;
     public $classe_id;
     public $fullname;
+    public $inscription_id;
+
+    public function editEleve(int $inscription_id)
+    {
+        $inscription = Inscription::find($inscription_id);
+        if($inscription)
+        {
+            $this->inscription_id = $inscription_id;
+            $this->matricule = $inscription->student->matricule;
+            $this->fullname = $inscription->fullname;
+            $this->level_id = $inscription->level_id;
+            // $this->classe_id = $inscription->classe->libelle;
+
+            // dd($inscription);
+        }
+    }
+
+    public function updateInscri(){
+        try {
+            $inscription = Inscription::find($this->inscription_id);
+            $inscription->student_id = $this->student_id;
+            $inscription->classe_id = $this->classe_id;
+
+            $inscription->save();
+
+            toastr()->success("Modification successful");
+        }catch(\Exception $e){
+            toastr()->error($e);
+        }return redirect()->route('inscriptions');
+    }
 
      public function store()
      {
@@ -67,47 +97,94 @@ class InscriptionShow extends Component
     public function render()
     {
 
-        if(!empty($this->search))
-        {
-            $inscriptions = Inscription::where('matricule', 'like', '%' . $this->search . '%')->orWhere('classe_id', 'like', '%' . $this->search . '%')->orWhere('school_years_id', 'like', '%' . $this->search . '%')->orWhere('comments', 'like', '%' . $this->search . '%')->paginate(5);
-        }else{
-
-            $activeschoolYear = SchoolYears::where('active', '1' )->first();
-
-            $levels = Level::where('school_year_id', $activeschoolYear->id)->get();
-
-            $inscriptions = Inscription::with(['student', 'classe', 'level'])->paginate(5);
-
-           // dd($inscriptions);
+        if(isset($this->classe_id)){
 
 
-            if(isset($this->matricule))
+            if(!empty($this->search))
             {
-                $student = Student::where("matricule", $this->matricule)->first();
-
-                if($student)
-                {
-                    //permet de recuperer nomcomplet
-                    $this->fullname = $student->nom . ' ' . $student->prenom;
-                    //sauvegarde l'id student
-                    $this->student_id = $student->id;
-
-                }else{
-                    $this->fullname = '';
-                }
-            }
-
-            if(isset($this->level_id))
-            {
-                $activeLevelid = $this->level_id;
-
-                $classes = Classe::where('level_id', $activeLevelid)->get();
+                $inscriptions = Inscription::where('nom', 'like', '%' . $this->search . '%')->orWhere('prenom', 'like', '%' . $this->search . '%')->orWhere('matricule', 'like', '%' . $this->search . '%')->orWhere('comments', 'like', '%' . $this->search . '%')->paginate(5);
             }else{
-                $classes = [];
-            }
 
+                $activeschoolYear = SchoolYears::where('active', '1' )->first();
+
+                $levels = Level::where('school_year_id', $activeschoolYear->id)->get();
+
+                $inscriptions = Inscription::with(['student', 'classe', 'level'])->where("classe_id", $this->classe_id)->paginate(5);
+
+            // dd($inscriptions);
+
+
+                if(isset($this->matricule))
+                {
+                    $student = Student::where("matricule", $this->matricule)->first();
+
+                    if($student)
+                    {
+                        //permet de recuperer nomcomplet
+                        $this->fullname = $student->nom . ' ' . $student->prenom;
+                        //sauvegarde l'id student
+                        $this->student_id = $student->id;
+
+                    }else{
+                        $this->fullname = '';
+                    }
+                }
+
+                if(isset($this->level_id))
+                {
+                    $activeLevelid = $this->level_id;
+
+                    $classes = Classe::where('level_id', $activeLevelid)->get();
+                }else{
+                    $classes = [];
+                }
+
+            }
+        }else{
+            if(!empty($this->search))
+            {
+                $inscriptions = Inscription::where('nom', 'like', '%' . $this->search . '%')->orWhere('prenom', 'like', '%' . $this->search . '%')->orWhere('matricule', 'like', '%' . $this->search . '%')->orWhere('comments', 'like', '%' . $this->search . '%')->paginate(5);
+            }else{
+
+                $activeschoolYear = SchoolYears::where('active', '1' )->first();
+
+                $levels = Level::where('school_year_id', $activeschoolYear->id)->get();
+
+                $inscriptions = Inscription::with(['student', 'classe', 'level'])->where("classe_id", $this->classe_id)->paginate(5);
+
+            // dd($inscriptions);
+
+
+                if(isset($this->matricule))
+                {
+                    $student = Student::where("matricule", $this->matricule)->first();
+
+                    if($student)
+                    {
+                        //permet de recuperer nomcomplet
+                        $this->fullname = $student->nom . ' ' . $student->prenom;
+                        //sauvegarde l'id student
+                        $this->student_id = $student->id;
+
+                    }else{
+                        $this->fullname = '';
+                    }
+                }
+
+                if(isset($this->level_id))
+                {
+                    $activeLevelid = $this->level_id;
+
+                    $classes = Classe::where('level_id', $activeLevelid)->get();
+                }else{
+                    $classes = [];
+                }
+
+            }
         }
 
-        return view('livewire.inscription-show', compact('inscriptions', 'levels', 'classes'));
+            $classelist = Classe::all();
+
+        return view('livewire.inscription-show', compact('inscriptions', 'levels', 'classes', 'classelist'));
     }
 }

@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\ClasseController;
-use App\Http\Controllers\ElevesController;
-use App\Http\Controllers\InscriptionController;
-use App\Http\Controllers\LevelsController;
-use App\Http\Controllers\NiveauController;
-use App\Http\Controllers\SchoolYearConttoller;
+use Livewire\Livewire;
 use App\Http\Livewire\ClasseShow;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Livewire\Livewire;
+use App\Http\Controllers\ClasseController;
+use App\Http\Controllers\ElevesController;
+use App\Http\Controllers\LevelsController;
+use App\Http\Controllers\NiveauController;
+use App\Http\Controllers\PaiementController;
+use App\Http\Controllers\SchoolYearConttoller;
+use App\Http\Controllers\InscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,4 +52,9 @@ Route::middleware('auth')->group(function() {
     Route::prefix('inscriptions')->group(function () {
         Route::get('/', [InscriptionController::class, 'index'])->name('inscriptions');
     });
+
+    Route::prefix('paiement')->group(function () {
+        Route::get('/', [PaiementController::class, 'index'])->name('paiement');
+    });
+
 });

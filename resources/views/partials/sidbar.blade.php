@@ -122,6 +122,13 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{ route("paiement") }}">
+                    <i class="fas fa-holly-berry"></i>
+                    <span>paiement</span>
+                </a>
+            </li>
+
 
             {{-- <li>
                 <a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>Fees</span></a>

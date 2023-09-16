@@ -1,6 +1,6 @@
 <div>
 
-    @include('livewire.modals.inscription-modal')
+     @include('livewire.modals.paiement-modal')
 
     <div>
         <div class="col-lg-12">
@@ -10,17 +10,17 @@
                         <input class="form-control" placeholder="Rechercher" wire:model='search'>
                     </h5>
 
-                    <div class="form-group col-3 mt-3">
+                    {{-- <div class="form-group col-3 mt-3">
                         <select class="form-control" name="classe_id" wire:model='classe_id'>
                             <option value="">-- Filtrez par classe --</option>
                             @foreach ($classelist as $classe )
                             <option value="{{ $classe->id }}">{{ $classe->libelle }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
 
                     <button type="button" class="btn btn-info mt-1 text-white" data-bs-toggle="modal"
-                        data-bs-target="#inscriadd">Inscription</button>
+                        data-bs-target="#paiementadd">Faire un Paiement</button>
                 </div>
 
                 <div class="card-body">
@@ -29,23 +29,21 @@
                             <thead>
                                 <tr>
                                     <th>Matricule</th>
-                                    <th>Nom</th>
-                                    <th>Prenom</th>
-                                    <th>Niveau</th>
-                                    <th>Classe</th>
+                                    <th>Eleve</th>
+                                    <th>Annee Scolaire</th>
+                                    <th>Montant</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @forelse ($inscriptions as $inscription)
+                             <tbody>
+                                @forelse ($paiements as $paiement)
                                     <tr>
-                                        <td>{{ $inscription->student->matricule }}</td>
-                                        <td>{{ $inscription->student->nom }}</td>
-                                        <td>{{ $inscription->student->prenom }}</td>
-                                        <td>{{ $inscription->classe->level->libelle }}</td>
-                                        <td>{{ $inscription->classe->libelle }}</td>
+                                        <td>{{ $paiement->student->matricule }}</td>
+                                        <td>{{ $paiement->student->nom }} {{ $paiement->student->prenom }}</td>
+                                        <td></td>
+                                         <td>{{ $paiement->montant }}</td>
 
-                                        <td>
+                                        {{-- <td>
                                             <button wire:click='editEleve({{ $inscription->id }})' type="button"
                                                 class="btn btn-outline-info mt-1" data-bs-toggle="modal"
                                                 data-bs-target="#editeleve"><i class='fas fa-edit'></i></button>
@@ -53,7 +51,7 @@
                                             <div wire:click='deleteClasse({{ $inscription->id }})'
                                                 class="btn btn-outline-danger"><i class="fas fa-trash"></i></div>
 
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @empty
                                     <tr>
@@ -72,7 +70,7 @@
                         </table>
 
                         <div class="float-left">
-                            {{ $inscriptions->links() }}
+                            {{ $paiements->links() }}
                         </div>
 
                     </div>
